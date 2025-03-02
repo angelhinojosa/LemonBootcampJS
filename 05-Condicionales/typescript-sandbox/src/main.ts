@@ -3,57 +3,6 @@ const MAXIMA_PUNTUACION: number = 7.5;
 const DESACTIVAR: boolean = true;
 const ACTIVAR: boolean = false;
 
-const handleDameCarta = (): void => {
-  const generarNumeroAleatorio = (): number =>
-    Math.floor(Math.random() * (11 - 1) + 1);
-
-  const numeroCarta: number = generarNumeroAleatorio();
-
-  cambiarImagenCarta(numeroCarta);
-  activarDesactivarBoton("plantarse", ACTIVAR);
-  obtienePuntuacion(numeroCarta);
-  muestraPuntuacion(puntuacion);
-  if (puntuacion > MAXIMA_PUNTUACION) {
-    gameOver();
-  }
-};
-
-const handlePlantarse = (): void => {
-  muestraMensaje(obtieneMensaje(puntuacion));
-  activarDesactivarBoton("dameCarta", DESACTIVAR);
-  activarDesactivarBoton("plantarse", DESACTIVAR);
-  activarDesactivarBoton("reiniciar", ACTIVAR);
-  if (puntuacion != 7.5) {
-    activarDesactivarBoton("curioso", ACTIVAR);
-  }
-};
-
-const handleReiniciar = (): void => {
-  location.reload();
-};
-
-const handleQueHabriaPasado = (): void => {
-  let mensaje: string;
-  handleDameCarta();
-
-  if (puntuacion <= 7.5) {
-    mensaje = `Sin el Canguelo habrías alcanzado los ${puntuacion} PUNTOS`;
-  } else {
-    mensaje = `Bien Jugado porque habrías perdido con ${puntuacion} PUNTOS`;
-  }
-
-  muestraMensaje(mensaje);
-  activarDesactivarBoton("curioso", DESACTIVAR);
-  activarDesactivarBoton("plantarse", DESACTIVAR);
-};
-
-const gameOver = (): void => {
-  muestraMensaje(obtieneMensaje(puntuacion));
-  activarDesactivarBoton("dameCarta", DESACTIVAR);
-  activarDesactivarBoton("plantarse", DESACTIVAR);
-  activarDesactivarBoton("reiniciar", ACTIVAR);
-};
-
 const cambiarImagenCarta = (valor: number): void => {
   const elementoFotoCarta = document.getElementById(
     "foto-carta"
@@ -125,7 +74,7 @@ const obtienePuntuacion = (valorCarta: number): number => {
   return puntuacion;
 };
 
-const muestraPuntuacion = (puntuacion: number): void => {
+const muestraPuntuacion = (): void => {
   const elementoPuntuacion = document.getElementById("puntuacion");
 
   if (elementoPuntuacion) {
@@ -134,6 +83,8 @@ const muestraPuntuacion = (puntuacion: number): void => {
     console.error("No se ha encontrado elemento con id puntuacion");
   }
 };
+
+document.addEventListener("DOMContentLoaded", muestraPuntuacion);
 
 const obtieneMensaje = (puntuacion: number): string => {
   let mensaje: string = " ";
@@ -187,7 +138,58 @@ const activarDesactivarBoton = (
   }
 };
 
+const gameOver = (): void => {
+  muestraMensaje(obtieneMensaje(puntuacion));
+  activarDesactivarBoton("dameCarta", DESACTIVAR);
+  activarDesactivarBoton("plantarse", DESACTIVAR);
+  activarDesactivarBoton("reiniciar", ACTIVAR);
+};
+
 // Handler de los bototes
+const handleDameCarta = (): void => {
+  const generarNumeroAleatorio = (): number =>
+    Math.floor(Math.random() * (11 - 1) + 1);
+
+  const numeroCarta: number = generarNumeroAleatorio();
+
+  cambiarImagenCarta(numeroCarta);
+  obtienePuntuacion(numeroCarta);
+  muestraPuntuacion();
+  activarDesactivarBoton("plantarse", ACTIVAR);
+  if (puntuacion > MAXIMA_PUNTUACION) {
+    gameOver();
+  }
+};
+
+const handlePlantarse = (): void => {
+  muestraMensaje(obtieneMensaje(puntuacion));
+  activarDesactivarBoton("dameCarta", DESACTIVAR);
+  activarDesactivarBoton("plantarse", DESACTIVAR);
+  activarDesactivarBoton("reiniciar", ACTIVAR);
+  if (puntuacion != 7.5) {
+    activarDesactivarBoton("curioso", ACTIVAR);
+  }
+};
+
+const handleReiniciar = (): void => {
+  location.reload();
+};
+
+const handleQueHabriaPasado = (): void => {
+  let mensaje: string;
+  handleDameCarta();
+
+  if (puntuacion <= 7.5) {
+    mensaje = `Sin el Canguelo habrías alcanzado los ${puntuacion} PUNTOS`;
+  } else {
+    mensaje = `Bien Jugado porque habrías perdido con ${puntuacion} PUNTOS`;
+  }
+
+  muestraMensaje(mensaje);
+  activarDesactivarBoton("curioso", DESACTIVAR);
+  activarDesactivarBoton("plantarse", DESACTIVAR);
+};
+
 const botonDameCarta = document.getElementById("dameCarta");
 
 if (botonDameCarta) {
