@@ -1,5 +1,6 @@
 import { nuevaPartida, MAXIMA_PUNTUACION, Partida } from "./model";
-import { partida } from "./ui";
+
+let partida: Partida = nuevaPartida();
 
 export const dameCarta = (): number => {
   let numeroAleatorio: number = 0;
@@ -85,7 +86,10 @@ export const isGameOver = (): boolean => {
   }
 };
 
-export const iniciarPartida = (): Partida => {
-  const partida = nuevaPartida();
-  return partida;
+export const iniciarPartida = (): void => {
+  partida = nuevaPartida();
+};
+
+export const puntuacionPartida = (): number => {
+  return partida.puntuacion;
 };
