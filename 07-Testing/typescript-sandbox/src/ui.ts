@@ -1,4 +1,4 @@
-import { ACTIVAR, DESACTIVAR, Partida } from "./model";
+import { ACTIVAR, DESACTIVAR } from "./model";
 
 import {
   obtieneMensaje,
@@ -8,9 +8,8 @@ import {
   isGameOver,
   iniciarPartida,
   dameCarta,
+  puntuacionPartida,
 } from "./motor";
-
-export let partida: Partida;
 
 const cambiarImagenCarta = (valor: number): void => {
   const elementoFotoCarta = document.getElementById(
@@ -82,7 +81,7 @@ export const muestraPuntuacion = (): void => {
   const elementoPuntuacion = document.getElementById("puntuacion");
 
   if (elementoPuntuacion) {
-    elementoPuntuacion.innerHTML = `Lleva ${partida.puntuacion} PUNTOS.`;
+    elementoPuntuacion.innerHTML = `Lleva ${puntuacionPartida()} PUNTOS.`;
   } else {
     console.error("No se ha encontrado elemento con id puntuacion");
   }
@@ -114,7 +113,7 @@ const activarDesactivarBoton = (
 };
 
 const gameOver = (): void => {
-  muestraMensaje(obtieneMensaje(partida.puntuacion));
+  muestraMensaje(obtieneMensaje(puntuacionPartida()));
   activarDesactivarBoton("dameCarta", DESACTIVAR);
   activarDesactivarBoton("plantarse", DESACTIVAR);
   activarDesactivarBoton("reiniciar", ACTIVAR);
@@ -133,7 +132,7 @@ export const handleDameCarta = (): void => {
 };
 
 export const handlePlantarse = (): void => {
-  muestraMensaje(obtieneMensaje(partida.puntuacion));
+  muestraMensaje(obtieneMensaje(puntuacionPartida()));
   activarDesactivarBoton("dameCarta", DESACTIVAR);
   activarDesactivarBoton("plantarse", DESACTIVAR);
   activarDesactivarBoton("reiniciar", ACTIVAR);
@@ -154,10 +153,10 @@ export const handleReiniciar = () => {
 };
 
 export const iniciarPartidaUI = (): void => {
-  partida = iniciarPartida();
+  iniciarPartida();
   cambiarImagenCarta(0);
   muestraPuntuacion();
-  muestraMensaje(obtieneMensaje(partida.puntuacion));
+  muestraMensaje(obtieneMensaje(puntuacionPartida()));
   activarDesactivarBoton("dameCarta", ACTIVAR);
   activarDesactivarBoton("plantarse", DESACTIVAR);
   activarDesactivarBoton("reiniciar", DESACTIVAR);
