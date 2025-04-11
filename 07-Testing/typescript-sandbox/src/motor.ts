@@ -1,6 +1,6 @@
 import { nuevaPartida, MAXIMA_PUNTUACION, Partida } from "./model";
 
-let partida: Partida = nuevaPartida();
+export let partida: Partida = nuevaPartida();
 
 export const dameCarta = (): number => {
   let numeroAleatorio: number = 0;
@@ -23,8 +23,8 @@ const simplificaValorCarta = (valorCarta: number): number => {
   }
 };
 
-export const acumulaPuntuacion = (valorCarta: number): number => {
-  return (partida.puntuacion += obtienePuntuacion(valorCarta));
+export const acumulaPuntuacion = (valorCarta: number): void => {
+  setPuntuacionPartida(obtienePuntuacion(valorCarta));
 };
 
 export const obtienePuntuacion = (valorCarta: number): number => {
@@ -35,23 +35,23 @@ export const obtienePuntuacion = (valorCarta: number): number => {
   }
 };
 
-export const obtieneMensaje = (puntuacion: number): string => {
+export const obtieneMensaje = (): string => {
   let mensaje: string = " ";
 
   switch (true) {
-    case puntuacion >= 4 && puntuacion < 5:
-      mensaje = `Te has plantado con ${puntuacion} PUNTOS. Has sido muy conservador`;
+    case puntuacionPartida() >= 4 && puntuacionPartida() < 5:
+      mensaje = `Te has plantado con ${puntuacionPartida()} PUNTOS. Has sido muy conservador`;
       break;
-    case puntuacion >= 5 && puntuacion < 6:
-      mensaje = `Te has plantado con ${puntuacion} PUNTOS. Te ha entrado el canguelo eh???`;
+    case puntuacionPartida() >= 5 && puntuacionPartida() < 6:
+      mensaje = `Te has plantado con ${puntuacionPartida()} PUNTOS. Te ha entrado el canguelo eh???`;
       break;
-    case puntuacion >= 6 && puntuacion <= 7:
-      mensaje = `Te has plantado con ${puntuacion} PUNTOS. Casi casi ....`;
+    case puntuacionPartida() >= 6 && puntuacionPartida() <= 7:
+      mensaje = `Te has plantado con ${puntuacionPartida()} PUNTOS. Casi casi ....`;
       break;
-    case puntuacion === 7.5:
-      mensaje = `Tu puntuación es de ${puntuacion} PUNTOS. ¡Lo has Clavado! ¡Enhorabuena!`;
+    case puntuacionPartida() === 7.5:
+      mensaje = `Tu puntuación es de ${puntuacionPartida()} PUNTOS. ¡Lo has Clavado! ¡Enhorabuena!`;
       break;
-    case puntuacion > 7.5:
+    case puntuacionPartida() > 7.5:
       mensaje = `GAME OVER`;
       break;
     default:
@@ -63,15 +63,15 @@ export const obtieneMensaje = (puntuacion: number): string => {
 };
 
 export const mensajeQueHabriaPasado = (): string => {
-  if (partida.puntuacion <= 7.5) {
-    return `Sin el Canguelo habrías alcanzado los ${partida.puntuacion} PUNTOS`;
+  if (puntuacionPartida() <= 7.5) {
+    return `Sin el Canguelo habrías alcanzado los ${puntuacionPartida()} PUNTOS`;
   } else {
-    return `Bien Jugado porque habrías perdido con ${partida.puntuacion} PUNTOS`;
+    return `Bien Jugado porque habrías perdido con ${puntuacionPartida()} PUNTOS`;
   }
 };
 
 export const habilitarQueHabríaPasado = (): boolean => {
-  if (partida.puntuacion < 7.5) {
+  if (puntuacionPartida() < 7.5) {
     return true;
   } else {
     return false;
@@ -79,7 +79,15 @@ export const habilitarQueHabríaPasado = (): boolean => {
 };
 
 export const isGameOver = (): boolean => {
-  if (partida.puntuacion > MAXIMA_PUNTUACION) {
+  if (puntuacionPartida() > MAXIMA_PUNTUACION) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const isHasGanado = (): boolean => {
+  if (puntuacionPartida() === MAXIMA_PUNTUACION) {
     return true;
   } else {
     return false;
@@ -92,4 +100,8 @@ export const iniciarPartida = (): void => {
 
 export const puntuacionPartida = (): number => {
   return partida.puntuacion;
+};
+
+export const setPuntuacionPartida = (puntos: number): void => {
+  partida.puntuacion += puntos;
 };

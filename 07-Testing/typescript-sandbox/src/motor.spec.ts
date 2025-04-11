@@ -1,16 +1,14 @@
 import { vi, expect, describe } from "vitest";
-import { dameCarta, obtieneMensaje, obtienePuntuacion } from "./motor";
-import { nuevaPartida } from "./model";
+import { dameCarta, obtieneMensaje, obtienePuntuacion, partida } from "./motor";
 
 // Apartado Obligatorio
 describe("obtieneMensaje", () => {
   it("Te has plantado. Has sido muy conservador", () => {
     // Arrange
-    const partida = nuevaPartida();
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(4.5);
-    const resultadoEsperado = `Te has plantado con ${partida.puntuacion} PUNTOS. Has sido muy conservador`;
+    const resultadoEsperado = `Te has plantado con 4.5 PUNTOS. Has sido muy conservador`;
     // Act
-    const mensaje: string = obtieneMensaje(partida.puntuacion);
+    const mensaje: string = obtieneMensaje();
 
     // Assert
     expect(mensaje).toBe(resultadoEsperado);
@@ -18,11 +16,10 @@ describe("obtieneMensaje", () => {
 
   it("Te has plantado. Te ha entrado el canguelo eh???", () => {
     // Arrange
-    const partida = nuevaPartida();
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(5);
     const resultadoEsperado = `Te has plantado con ${partida.puntuacion} PUNTOS. Te ha entrado el canguelo eh???`;
     // Act
-    const mensaje: string = obtieneMensaje(partida.puntuacion);
+    const mensaje: string = obtieneMensaje();
 
     // Assert
     expect(mensaje).toBe(resultadoEsperado);
@@ -30,11 +27,10 @@ describe("obtieneMensaje", () => {
 
   it("Te has plantado. Casi casi ....", () => {
     // Arrange
-    const partida = nuevaPartida();
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(7);
     const resultadoEsperado = `Te has plantado con ${partida.puntuacion} PUNTOS. Casi casi ....`;
     // Act
-    const mensaje: string = obtieneMensaje(partida.puntuacion);
+    const mensaje: string = obtieneMensaje();
 
     // Assert
     expect(mensaje).toBe(resultadoEsperado);
@@ -42,11 +38,10 @@ describe("obtieneMensaje", () => {
 
   it("¡Lo has Clavado! ¡Enhorabuena!`", () => {
     // Arrange
-    const partida = nuevaPartida();
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(7.5);
     const resultadoEsperado = `Tu puntuación es de ${partida.puntuacion} PUNTOS. ¡Lo has Clavado! ¡Enhorabuena!`;
     // Act
-    const mensaje: string = obtieneMensaje(partida.puntuacion);
+    const mensaje: string = obtieneMensaje();
 
     // Assert
     expect(mensaje).toBe(resultadoEsperado);
@@ -54,11 +49,10 @@ describe("obtieneMensaje", () => {
 
   it("GAME OVER", () => {
     // Arrange
-    const partida = nuevaPartida();
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(8);
     const resultadoEsperado = `GAME OVER`;
     // Act
-    const mensaje: string = obtieneMensaje(partida.puntuacion);
+    const mensaje: string = obtieneMensaje();
 
     // Assert
     expect(mensaje).toBe(resultadoEsperado);
@@ -70,7 +64,6 @@ describe("obtieneMensaje", () => {
 describe("dameCarta", () => {
   it("La carta no puede ser menor de 0 ni mayor de 40", () => {
     //Arrange
-    //const partida: Partida = nuevaPartida();
 
     //Act
     const carta: number = dameCarta();

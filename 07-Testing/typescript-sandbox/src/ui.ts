@@ -6,6 +6,7 @@ import {
   mensajeQueHabriaPasado,
   habilitarQueHabríaPasado,
   isGameOver,
+  isHasGanado,
   iniciarPartida,
   dameCarta,
   puntuacionPartida,
@@ -113,7 +114,14 @@ const activarDesactivarBoton = (
 };
 
 const gameOver = (): void => {
-  muestraMensaje(obtieneMensaje(puntuacionPartida()));
+  muestraMensaje(obtieneMensaje());
+  activarDesactivarBoton("dameCarta", DESACTIVAR);
+  activarDesactivarBoton("plantarse", DESACTIVAR);
+  activarDesactivarBoton("reiniciar", ACTIVAR);
+};
+
+const hasGanado = (): void => {
+  muestraMensaje(obtieneMensaje());
   activarDesactivarBoton("dameCarta", DESACTIVAR);
   activarDesactivarBoton("plantarse", DESACTIVAR);
   activarDesactivarBoton("reiniciar", ACTIVAR);
@@ -126,13 +134,16 @@ export const handleDameCarta = (): void => {
   acumulaPuntuacion(numeroCarta);
   muestraPuntuacion();
   activarDesactivarBoton("plantarse", ACTIVAR);
+  if (isHasGanado()) {
+    hasGanado();
+  }
   if (isGameOver()) {
     gameOver();
   }
 };
 
 export const handlePlantarse = (): void => {
-  muestraMensaje(obtieneMensaje(puntuacionPartida()));
+  muestraMensaje(obtieneMensaje());
   activarDesactivarBoton("dameCarta", DESACTIVAR);
   activarDesactivarBoton("plantarse", DESACTIVAR);
   activarDesactivarBoton("reiniciar", ACTIVAR);
@@ -156,7 +167,7 @@ export const iniciarPartidaUI = (): void => {
   iniciarPartida();
   cambiarImagenCarta(0);
   muestraPuntuacion();
-  muestraMensaje(obtieneMensaje(puntuacionPartida()));
+  muestraMensaje(obtieneMensaje());
   activarDesactivarBoton("dameCarta", ACTIVAR);
   activarDesactivarBoton("plantarse", DESACTIVAR);
   activarDesactivarBoton("reiniciar", DESACTIVAR);
