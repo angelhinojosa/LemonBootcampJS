@@ -17,7 +17,7 @@ describe("obtieneMensaje", () => {
   it("Te has plantado. Te ha entrado el canguelo eh???", () => {
     // Arrange
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(5);
-    const resultadoEsperado = `Te has plantado con ${partida.puntuacion} PUNTOS. Te ha entrado el canguelo eh???`;
+    const resultadoEsperado = `Te has plantado con 5 PUNTOS. Te ha entrado el canguelo eh???`;
     // Act
     const mensaje: string = obtieneMensaje();
 
@@ -28,7 +28,7 @@ describe("obtieneMensaje", () => {
   it("Te has plantado. Casi casi ....", () => {
     // Arrange
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(7);
-    const resultadoEsperado = `Te has plantado con ${partida.puntuacion} PUNTOS. Casi casi ....`;
+    const resultadoEsperado = `Te has plantado con 7 PUNTOS. Casi casi ....`;
     // Act
     const mensaje: string = obtieneMensaje();
 
@@ -39,7 +39,7 @@ describe("obtieneMensaje", () => {
   it("¡Lo has Clavado! ¡Enhorabuena!`", () => {
     // Arrange
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(7.5);
-    const resultadoEsperado = `Tu puntuación es de ${partida.puntuacion} PUNTOS. ¡Lo has Clavado! ¡Enhorabuena!`;
+    const resultadoEsperado = `Tu puntuación es de 7.5 PUNTOS. ¡Lo has Clavado! ¡Enhorabuena!`;
     // Act
     const mensaje: string = obtieneMensaje();
 
