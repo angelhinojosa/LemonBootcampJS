@@ -24,7 +24,7 @@ const simplificaValorCarta = (valorCarta: number): number => {
 };
 
 export const acumulaPuntuacion = (valorCarta: number): void => {
-  setPuntuacionPartida(obtienePuntuacion(valorCarta));
+  partida.puntuacion += obtienePuntuacion(valorCarta);
 };
 
 export const obtienePuntuacion = (valorCarta: number): number => {
@@ -100,8 +100,4 @@ export const iniciarPartida = (): void => {
 
 export const puntuacionPartida = (): number => {
   return partida.puntuacion;
-};
-
-export const setPuntuacionPartida = (puntos: number): void => {
-  partida.puntuacion += puntos;
 };
